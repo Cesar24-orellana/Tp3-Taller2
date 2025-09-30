@@ -47,13 +47,11 @@ public class Pedido
         return stringPedido;
     }
 
-    public static void MostrarPedido(Pedido pedido)
+    public static string MostrarPedido(Pedido pedido)
     {
-
-        Console.WriteLine();
-        Console.WriteLine($"Pedido: {pedido.NumPedido} - Obs: {pedido.Obs} - Estado: {pedido.Estado}");
-        pedido.VerDatosCliente();
-        pedido.VerDireccionCliente();
+        string pedidoString = $"Pedido: {pedido.NumPedido} - Obs: {pedido.Obs} - Estado: {pedido.Estado}\n" +
+        pedido.VerDatosCliente + pedido.VerDireccionCliente;
+        return pedidoString;
     }
 
     public enum EstadoPedido
