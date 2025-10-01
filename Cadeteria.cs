@@ -2,10 +2,10 @@ using System.Globalization;
 
 public class Cadeteria
 {
-    private string? Nombre { get; set; }
-    private double Telefono { get; set; }
-    public List<Cadete> ListadoCadetes;
-    public List<Pedido> ListadoPedidos{ get; }
+    public string? Nombre { get; private set; }
+    public double Telefono { get; private set; }
+    public List<Cadete> ListadoCadetes{ get; private set;}
+    public List<Pedido> ListadoPedidos{ get; private set;}
 
     public Cadeteria(string? nombre, double telefono, List<Cadete> listadoCadetes, List<Pedido> listadoPedidos)
     {
@@ -15,27 +15,28 @@ public class Cadeteria
         this.ListadoPedidos = listadoPedidos;
     }
 
-    public static void ReasignarPedido(Cadeteria cadeteria, Cadete cadete, Pedido pedido)
+    public string AsignarPedido(int idCadete, int numPedido)
     {
-        foreach (var PedidoActual in cadeteria.ListadoPedidos)
-        {
-            if (PedidoActual == pedido)
-            {
-                PedidoActual.CadeteAsignado = cadete;
-            }
-        }
+        var pedido = ListadoPedidos.FirstOrDefault(p=>p.NumPedido == numPedido);
+        var cadete = ListadoCadetes.FirstOrDefault(j=>j.ID == idCadete);
+        if (pedido == null || cadete == null) return "cadete o pedido no existe!!";
+        pedido.CadeteAsignado = cadete;
+        return "Cadete fue asignado con exito!!";
     }
 
-    public static double JornalACobrar(int Id, List<Pedido> ListaPedidos)
+    public double JornalACobrar(int Id)
     {
-        return ListaPedidos
+        return ListadoPedidos
             .Where(p => p.CadeteAsignado?.ID == Id && p.Estado == Pedido.EstadoPedido.Entregado)
             .Count() * 500;
     }
-    public static int PedidosEntregados(Cadete cadete, List<Pedido> ListaPedidos)
+
+    public int PedidosEntregados(int idCadete)
     {
+        var cadete = ListadoCadetes.FirstOrDefault(p=>p.ID == idCadete);
+        if (cadete == null) return 0;
         int CantEntregados = 0;
-        foreach (var PedidoActual in ListaPedidos)
+        foreach (var PedidoActual in ListadoPedidos)
         {
             if (PedidoActual.Estado == Pedido.EstadoPedido.Entregado && PedidoActual.CadeteAsignado == cadete)
             {
@@ -45,9 +46,12 @@ public class Cadeteria
         return CantEntregados;
     }
 
-    public static void CambiarEstado(Pedido pedido, Pedido.EstadoPedido NuevoEstado)
+    public string CambiarEstado(int numPedido, Pedido.EstadoPedido NuevoEstado)
     {
-        pedido.CambiarEstado(NuevoEstado);
+        var pedido = ListadoPedidos.FirstOrDefault(p => p.NumPedido == numPedido);
+        if (pedido == null) return "Pedido no encontrado";
+        else pedido.CambiarEstado(NuevoEstado);
+        return "Pedido encontrado y actualizado";
     }
 
     public void AsignarCadeteAPedido(int IdCadete, int IdPedido)

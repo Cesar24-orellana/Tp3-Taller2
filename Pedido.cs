@@ -36,21 +36,27 @@ public class Pedido
     {
         Console.WriteLine(cliente);
     }
-    public static string MostrarPedidos(List<Pedido> Pedidos)
+
+    /* public static string MostrarPedidos(List<Pedido> Pedidos)
     {
         string stringPedido = "Cargando Lista de Pedidos\n- - - -\n";
         foreach (var PedidoActual in Pedidos)
         {
             stringPedido = stringPedido + "Pedido: " + PedidoActual.NumPedido + " - Obs: " + PedidoActual.Obs + " - Estado: "
-            + PedidoActual.Estado + PedidoActual.VerDatosCliente+ PedidoActual.VerDireccionCliente+ "\n- - - -\n";
+            + PedidoActual.Estado + $"\n{PedidoActual.VerDatosCliente}" + $"\n{PedidoActual.VerDireccionCliente}";
+            if (PedidoActual.CadeteAsignado != null)
+            {
+                stringPedido += $"\nCadete Asignado: {PedidoActual.CadeteAsignado}\n";
+            }
+            stringPedido += "- - - -\n";
         }
         return stringPedido;
-    }
+    } */
 
-    public static string MostrarPedido(Pedido pedido)
+    public object MostrarPedido()
     {
-        string pedidoString = $"Pedido: {pedido.NumPedido} - Obs: {pedido.Obs} - Estado: {pedido.Estado}\n" +
-        pedido.VerDatosCliente + pedido.VerDireccionCliente;
+        string pedidoString = $"Pedido: {NumPedido} - Obs: {Obs} - Estado: {Estado}\n";
+        pedidoString += $"{VerDatosCliente} {VerDireccionCliente} \nCadete Asignado: {CadeteAsignado}";
         return pedidoString;
     }
 

@@ -15,7 +15,15 @@ public class Cadete
         this.Telefono = telefono;
     }
 
-    public static string MostrarListaCadetes(List<Cadete> ListaCadetes)
+    public string MostrarInformacionCadete()
+    {
+        string MensajeCadete = $"Cargando Cadete\n - - - -\n"
+                            + $"Cadete ID: {ID} - Nombre: {Nombre} - Dirección: {Direccion} - Telefono: {Telefono}" +
+                            "\n- - - -";
+        return MensajeCadete;
+    }
+
+    public string MostrarListaCadetes(List<Cadete> ListaCadetes)
     {
         string MensajeCadete = $"Cargando lista de cadetes: \n- - - -\n";
         foreach (var CadeteActual in ListaCadetes)
@@ -26,11 +34,4 @@ public class Cadete
         return MensajeCadete;
     }
 
-    public static string MostrarCadete(Cadete cadete)
-    {
-        string MensajeCadete = $"Cargando Cadete\n - - - -\n"
-                            + $"Cadete ID: {cadete.ID} - Nombre: {cadete.Nombre} - Dirección: {cadete.Direccion} - Telefono: {cadete.Telefono}" +
-                            "\n- - - -";
-        return MensajeCadete;
-    }
 }
