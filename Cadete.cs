@@ -15,24 +15,22 @@ public class Cadete
         this.Telefono = telefono;
     }
 
-    public static void MostrarListaCadetes(List<Cadete> ListaCadetes)
+    public static string MostrarListaCadetes(List<Cadete> ListaCadetes)
     {
-        Console.WriteLine("Cargando lista de cadetes: ");
-        Console.WriteLine("- - - - - -");
+        string MensajeCadete = $"Cargando lista de cadetes: \n- - - -\n";
         foreach (var CadeteActual in ListaCadetes)
         {
-            Console.WriteLine($"Cadete ID: {CadeteActual.ID} - Nombre: {CadeteActual.Nombre} - Dirección: {CadeteActual.Direccion} - Telefono: {CadeteActual.Telefono}");
-            //Pedido.MostrarPedidos(CadeteActual.ListadoPedidos);
-            Console.WriteLine("- - - - - -");
+            MensajeCadete += $"Cadete ID: {CadeteActual.ID} - Nombre: {CadeteActual.Nombre} - Dirección: {CadeteActual.Direccion} - Telefono: {CadeteActual.Telefono}\n"
+                            + "- - - \n";
         }
+        return MensajeCadete;
     }
 
-    public static void MostrarCadete(Cadete cadete)
+    public static string MostrarCadete(Cadete cadete)
     {
-        Console.WriteLine("Cargando Cadete");
-        Console.WriteLine("- - - - - -");
-        Console.WriteLine($"Cadete ID: {cadete.ID} - Nombre: {cadete.Nombre} - Dirección: {cadete.Direccion} - Telefono: {cadete.Telefono}");
-        //Pedido.MostrarPedidos(cadete.ListadoPedidos);
-        Console.WriteLine("- - - - - -");
+        string MensajeCadete = $"Cargando Cadete\n - - - -\n"
+                            + $"Cadete ID: {cadete.ID} - Nombre: {cadete.Nombre} - Dirección: {cadete.Direccion} - Telefono: {cadete.Telefono}" +
+                            "\n- - - -";
+        return MensajeCadete;
     }
 }

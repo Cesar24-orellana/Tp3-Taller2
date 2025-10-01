@@ -1,0 +1,26 @@
+[
+  {
+    "Estado": 1,
+    "cliente": {
+      "Nombre": "Juan Pérez",
+      "direccion": "Calle Falsa 123",
+      "Telefono": 123456,
+      "DatosRefereciaDireccion": "Casa roja con portón"
+    },
+    "NumPedido": 1,
+    "Obs": "Entrega urgente",
+    "CadeteAsignado": null
+  },
+  {
+    "Estado": 1,
+    "cliente": {
+      "Nombre": "María López",
+      "direccion": "Av. Siempre Viva 742",
+      "Telefono": 654321,
+      "DatosRefereciaDireccion": "Edificio azul, depto 3B"
+    },
+    "NumPedido": 2,
+    "Obs": "Entrega normal",
+    "CadeteAsignado": null
+  }
+]
