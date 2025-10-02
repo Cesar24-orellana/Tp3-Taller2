@@ -18,19 +18,7 @@ public class Cadete
     public string MostrarInformacionCadete()
     {
         string MensajeCadete = $"Cargando Cadete\n - - - -\n"
-                            + $"Cadete ID: {ID} - Nombre: {Nombre} - Dirección: {Direccion} - Telefono: {Telefono}" +
-                            "\n- - - -";
-        return MensajeCadete;
-    }
-
-    public string MostrarListaCadetes(List<Cadete> ListaCadetes)
-    {
-        string MensajeCadete = $"Cargando lista de cadetes: \n- - - -\n";
-        foreach (var CadeteActual in ListaCadetes)
-        {
-            MensajeCadete += $"Cadete ID: {CadeteActual.ID} - Nombre: {CadeteActual.Nombre} - Dirección: {CadeteActual.Direccion} - Telefono: {CadeteActual.Telefono}\n"
-                            + "- - - \n";
-        }
+                            + $"Cadete ID: {ID} - Nombre: {Nombre} - Dirección: {Direccion} - Telefono: {Telefono}";
         return MensajeCadete;
     }
 
