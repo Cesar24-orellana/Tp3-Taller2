@@ -14,4 +14,11 @@ public class AccesoADatosJSON<T> : IAccesoADatos<T>
         string textoJson = File.ReadAllText(archivo);
         return JsonSerializer.Deserialize<List<T>>(textoJson) ?? new List<T>();
     }
+
+    public void Guardar(List<T> datos, string ruta)
+    {
+        var Opcion = new JsonSerializerOptions { WriteIndented = true };
+        string infoJson = JsonSerializer.Serialize(datos, Opcion);
+        File.WriteAllText(ruta, infoJson);
+    }
 }
