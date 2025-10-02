@@ -11,6 +11,7 @@ var NuevoPedido=new Pedido(
 NuevoPedido.VerDatosCliente();
 NuevoPedido.VerDireccionCliente();
 Console.WriteLine("- - - -");
+
 // Cargar lista con archivo CSV
 string ArchivoPedido = "pedidos.csv";
 string ArchivoCadete = "cadetes.csv";
@@ -19,7 +20,7 @@ IAccesoADatos<Pedido> accesoPedido;
 IAccesoADatos<Cadete> accesoCadete;
 
 Console.WriteLine("Desea cargar las listas con archivo: \n1_ csv o 2_ Json");
-string seleccion = Console.ReadLine();
+string? seleccion = Console.ReadLine();
 if (seleccion == "1")
 {
     accesoPedido = new AccesoADatosCSV<Pedido>();
@@ -34,12 +35,9 @@ else
 }
 
 var ListaPedidos = accesoPedido.Cargar(ArchivoPedido);
+// Cargar lista de cadetes
 var ListaCadetes = accesoCadete.Cargar(ArchivoCadete);
 
-// Cargar lista de cadetes
-
-Cadete.MostrarListaCadetes(ListaCadetes);
-Console.WriteLine("- - - -");
 
 // Crear Nuevos Cadetes
 var Cadete1 = new Cadete(1, "Manuel", "Calle Nueva Esperanza", 3816549684);
@@ -48,6 +46,21 @@ ListaPedidos.Add(NuevoPedido);
 ListaCadetes.Add(Cadete1);
 
 var NuevaCadeteria = new Cadeteria("Cadeteria Don Juan", 545645456, ListaCadetes, ListaPedidos);
-Cadeteria.ReasignarPedido(NuevaCadeteria, Cadete1, NuevoPedido);
+
+Random random = new Random();
+foreach (var pedido in ListaPedidos)
+{
+    if (ListaCadetes.Count != 0 && ListaPedidos != null)
+    {
+        int idCadete = random.Next(ListaCadetes.Count);
+        string asignar = NuevaCadeteria.AsignarPedido(idCadete, pedido.NumPedido);
+        int nuevoEstado = random.Next(0, 2);
+        string estado = NuevaCadeteria.CambiarEstado(pedido.NumPedido, nuevoEstado);
+    }
+}
+Console.WriteLine(NuevaCadeteria.ListadoCadetes);
+Console.WriteLine("- - - -");
+Console.WriteLine(NuevaCadeteria.ListaPedidoString);
+Console.WriteLine(NuevaCadeteria.AsignarPedido(1,1));
 
 Informe.InformePago(NuevaCadeteria, ListaPedidos);
