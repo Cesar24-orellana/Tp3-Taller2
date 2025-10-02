@@ -10,9 +10,9 @@ public class Informe
         Console.WriteLine(" - - - Informe de Jornada - - -");
         foreach (var cadete in cadeteria.ListadoCadetes)
         {
-            int cantPedidosEntregados = Cadeteria.PedidosEntregados(cadete, ListaPedido);
+            int cantPedidosEntregados = cadeteria.PedidosEntregados(cadete.ID);
             int cantPedidos = ListaPedido.Count;
-            double JornalCobrar = Cadeteria.JornalACobrar(cadete.ID, ListaPedido);
+            double JornalCobrar = cadeteria.JornalACobrar(cadete.ID);
 
             Console.WriteLine($"Cadete: {cadete.Nombre}");
             Console.WriteLine($"Cantidad de pedidos: {cantPedidos}");

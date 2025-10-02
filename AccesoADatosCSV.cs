@@ -44,14 +44,50 @@ public class AccesoADatosCSV<T> : IAccesoADatos<T>
             else
             {
                 var ID = int.Parse(Separar[0]);
-            var Nombre = Separar[1];
-            var Direccion = Separar[2];
-            var Telefono = int.Parse(Separar[3]);
+                var Nombre = Separar[1];
+                var Direccion = Separar[2];
+                var Telefono = int.Parse(Separar[3]);
 
-            var CadeteCarga = new Cadete(ID,Nombre, Direccion, Telefono);
-            Lista.Add((T)(object)CadeteCarga);
+                var CadeteCarga = new Cadete(ID, Nombre, Direccion, Telefono);
+                Lista.Add((T)(object)CadeteCarga);
             }
         }
         return Lista;
+    }
+
+    public void Guardar(List<T> datos, string ruta)
+    {
+        using (var lineas = new StreamWriter(ruta))
+        {
+            if (typeof(T) == typeof(Cadete))
+            {
+                lineas.WriteLine("ID,Nombre,Direccion,Telefono");
+                foreach (var item in datos)
+                {
+                    if (item is Cadete cadete)
+                    {
+                        lineas.WriteLine($"{cadete.ID}{cadete.Nombre}{cadete.Direccion}{cadete.Telefono}");
+                    }
+                }
+            }
+            else if (typeof(T) == typeof(Pedido))
+            {
+                lineas.WriteLine("NumPedido,Obs,Estado,ClienteNombre,ClienteDireccion,ClienteTelefono,ClienteDatosReferencia");
+                foreach (var item in datos)
+                {
+                    if (item is Pedido pedido)
+                    {
+                        int estado = pedido.Estado switch
+                        {
+                            Pedido.EstadoPedido.Entregado => 0,
+                            Pedido.EstadoPedido.Pendiente => 1,
+                            _ => 2
+                        };
+                        lineas.WriteLine($"{pedido.NumPedido}{pedido.Obs}{estado}{pedido.cliente.Nombre}"+
+                                $"{pedido.cliente.Direccion}{pedido.cliente.Telefono}{pedido.cliente.DatosRefereciaDireccion}");
+                    }
+                }
+            }
+        }
     }
 }
